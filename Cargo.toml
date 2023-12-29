@@ -1,0 +1,39 @@
+[package]
+name = "darth-tools"
+version = "0.1.0"
+edition = "2021"
+description = "Darth tools"
+authors = ["Pas2Rust <pas2000@proton.me>"]
+homepage = ""
+repository = ""
+license = "MIT"
+
+
+[package.metadata.scripts]
+dev = "cargo fmt && cargo clippy && cargo run"
+test = "cargo fmt && cargo clippy && cargo test"
+deploy = "cargo fmt && cargo clippy && cargo package && cargo publish"
+clean = "cargo clean && rm -rf target && rm -rf dist"
+
+[dependencies]
+argon2 = "*"
+bcrypt = "*"
+chrono = "*"
+jsonwebtoken = "*"
+serde = "*"
+serde_json = "*"
+lettre = "*"
+mongodb = "*"
+rand = "*"
+lazy_static = "*"
+async-trait = "*"
+tokio = "*"
+dotenv = "0.15.0"
+
+[dependencies.uuid]
+version = "*"
+features = [
+    "v4",                # Lets you generate random UUIDs
+    "fast-rng",          # Use a faster (but still sufficiently random) RNG
+    "macro-diagnostics", # Enable better diagnostics for compile-time UUIDs
+]
