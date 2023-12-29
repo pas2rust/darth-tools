@@ -37,7 +37,7 @@ async fn mongodb_connect_is_possible() {
         Ok(table) => {
             let insert = table
                 .insert_one(
-                    10,
+                    5,
                     User {
                         email: "email".to_string(),
                         id: "1".to_string(),
@@ -51,7 +51,7 @@ async fn mongodb_connect_is_possible() {
                 Err(err) => assert!(false, "{:#?}", err),
             };
             let doc = doc! { "id": "1" };
-            let del = table.collection.delete_one(doc, None).await;
+            let del = table.delete_one(5, doc, None).await;
             match del {
                 Ok(_) => assert!(true),
                 Err(err) => assert!(false, "{:#?}", err),

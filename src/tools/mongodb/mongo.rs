@@ -4,17 +4,18 @@ use mongodb::{
     options::{
         AggregateOptions, CreateIndexOptions,
         CreateSearchIndexOptions, DeleteOptions,
-        DropCollectionOptions, FindOptions,
-        SessionOptions, UpdateOptions, UpdateSearchIndexOptions, InsertOneOptions, InsertManyOptions,
+        DropCollectionOptions, FindOptions, InsertManyOptions,
+        InsertOneOptions, SessionOptions, UpdateOptions,
+        UpdateSearchIndexOptions,
     },
     results::{
         CreateIndexResult, CreateIndexesResult, DeleteResult,
-        UpdateResult, InsertOneResult, InsertManyResult,
+        InsertManyResult, InsertOneResult, UpdateResult,
     },
     Client, Collection, Cursor, Database, IndexModel,
     SearchIndexModel, SessionCursor,
 };
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
 use tokio::time::{timeout, Duration};
 
 #[derive(Debug)]
@@ -351,8 +352,12 @@ impl<Item: Serialize + Deserialize<'static>> Mongo<Item> {
     ) -> Result<InsertOneResult, Error> {
         let collection = &self.collection;
         let mut session =
-        self.client.start_session(session_options).await?;
-        let future = collection.insert_one_with_session(doc, options, &mut session);
+            self.client.start_session(session_options).await?;
+        let future = collection.insert_one_with_session(
+            doc,
+            options,
+            &mut session,
+        );
         match timeout(Duration::from_secs(secs), future).await {
             Ok(ok) => ok,
             Err(err) => Err(Error::custom(err)),
@@ -367,8 +372,12 @@ impl<Item: Serialize + Deserialize<'static>> Mongo<Item> {
     ) -> Result<InsertManyResult, Error> {
         let collection = &self.collection;
         let mut session =
-        self.client.start_session(session_options).await?;
-        let future = collection.insert_many_with_session(doc, options, &mut session);
+            self.client.start_session(session_options).await?;
+        let future = collection.insert_many_with_session(
+            doc,
+            options,
+            &mut session,
+        );
         match timeout(Duration::from_secs(secs), future).await {
             Ok(ok) => ok,
             Err(err) => Err(Error::custom(err)),
