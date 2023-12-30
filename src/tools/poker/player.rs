@@ -4,6 +4,13 @@ use super::{
 };
 
 #[derive(Clone, Debug)]
+pub enum Decision {
+    Call,
+    Fold,
+    Rise,
+    Check
+}
+#[derive(Clone, Debug)]
 pub struct Player {
     pub id: String,
     pub history: Vec<History>,
@@ -12,5 +19,6 @@ pub struct Player {
     pub stack: u64,
     pub bank: u64,
     pub bet: u64,
+    pub decisions: Vec<Decision>,
     pub combination: Combination,
 }
