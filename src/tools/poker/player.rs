@@ -8,7 +8,7 @@ pub enum Decision {
     Call,
     Fold,
     Rise,
-    Check
+    Check,
 }
 #[derive(Clone, Debug)]
 pub struct Player {
