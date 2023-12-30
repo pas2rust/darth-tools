@@ -24,6 +24,7 @@ async fn mongodb_connect_is_impossible() {
 }
 
 #[tokio::test]
+#[ignore]
 async fn mongodb_connect_is_possible() {
     dotenv().ok();
     let uri = env::var("MONGODB_URI").expect("env MONGODB_URI error");

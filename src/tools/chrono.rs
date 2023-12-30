@@ -54,65 +54,65 @@ impl ChronoTrait for DarthTools {
         Duration::weeks(time)
     }
     fn new_date_utc_add_time_by_hours(hours: i64) -> DateTime<Utc> {
-        let now = Utc::now();
-        let duration = Duration::hours(hours);
+        let now = Self::new_date_utc_now();
+        let duration = Self::duration_hours(hours);
         now + duration
     }
     fn new_date_utc_add_time_by_minutes(
         minutes: i64,
     ) -> DateTime<Utc> {
-        let now = Utc::now();
-        let duration = Duration::minutes(minutes);
+        let now = Self::new_date_utc_now();
+        let duration = Self::duration_minutes(minutes);
         now + duration
     }
     fn new_date_utc_add_time_by_seconds(
         seconds: i64,
     ) -> DateTime<Utc> {
-        let now = Utc::now();
-        let duration = Duration::seconds(seconds);
+        let now = Self::new_date_utc_now();
+        let duration = Self::duration_sec(seconds);
         now + duration
     }
     fn new_date_utc_add_time_by_weeks(weeks: i64) -> DateTime<Utc> {
-        let now = Utc::now();
-        let duration = Duration::weeks(weeks);
+        let now = Self::new_date_utc_now();
+        let duration = Self::duration_weeks(weeks);
         now + duration
     }
     fn new_date_utc_add_time_by_days(days: i64) -> DateTime<Utc> {
-        let now = Utc::now();
-        let duration = Duration::days(days);
+        let now = Self::new_date_utc_now();
+        let duration = Self::duration_days(days);
         now + duration
     }
     fn new_date_local_add_time_by_minutes(
         minutes: i64,
     ) -> DateTime<Local> {
-        let now = Local::now();
-        let duration = Duration::minutes(minutes);
+        let now = Self::new_date_local_now();
+        let duration = Self::duration_minutes(minutes);
         now + duration
     }
     fn new_date_local_add_time_by_weeks(
         weeks: i64,
     ) -> DateTime<Local> {
-        let now = Local::now();
-        let duration = Duration::weeks(weeks);
+        let now = Self::new_date_local_now();
+        let duration = Self::duration_weeks(weeks);
         now + duration
     }
     fn new_date_local_add_time_by_seconds(
         seconds: i64,
     ) -> DateTime<Local> {
-        let now = Local::now();
-        let duration = Duration::seconds(seconds);
+        let now = Self::new_date_local_now();
+        let duration = Self::duration_sec(seconds);
         now + duration
     }
     fn new_date_local_add_time_by_hours(
         hours: i64,
     ) -> DateTime<Local> {
-        let now = Local::now();
-        let duration = Duration::hours(hours);
+        let now = Self::new_date_local_now();
+        let duration = Self::duration_hours(hours);
         now + duration
     }
     fn new_date_local_add_time_by_days(days: i64) -> DateTime<Local> {
-        let now = Local::now();
-        let duration = Duration::days(days);
+        let now = Self::new_date_local_now();
+        let duration = Self::duration_days(days);
         now + duration
     }
     fn new_date_local_now() -> DateTime<Local> {
@@ -122,13 +122,13 @@ impl ChronoTrait for DarthTools {
         Utc::now()
     }
     fn date_utc_is_expired(expiration_date: DateTime<Utc>) -> bool {
-        let now = Utc::now();
+        let now = Self::new_date_utc_now();
         now > expiration_date
     }
     fn date_local_is_expired(
         expiration_date: DateTime<Local>,
     ) -> bool {
-        let now = Local::now();
+        let now = Self::new_date_local_now();
         now > expiration_date
     }
 }

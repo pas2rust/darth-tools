@@ -27,8 +27,8 @@ mongodb = "*"
 rand = "*"
 lazy_static = "*"
 async-trait = "*"
-tokio = "*"
-dotenv = "0.15.0"
+tokio = { version = "*", features = ["full"] }
+dotenv = "*"
 
 [dependencies.uuid]
 version = "*"
