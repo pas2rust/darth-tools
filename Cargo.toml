@@ -30,8 +30,6 @@ async-trait = "0.1.75"
 tokio = { version = "1.35.1", features = ["full"] }
 dotenv = "0.15.0"
 
-
-
 [dependencies.uuid]
 uuid = "1.6.1"
 features = [
