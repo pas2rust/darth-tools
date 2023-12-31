@@ -8,7 +8,6 @@ homepage = "https://github.com/pas2rust/darth-tools"
 repository = "https://github.com/pas2rust/darth-tools"
 license = "MIT"
 
-
 [package.metadata.scripts]
 dev = "cargo fmt && cargo clippy && cargo run"
 test = "cargo fmt && cargo clippy && cargo test"
@@ -16,24 +15,24 @@ deploy = "cargo fmt && cargo clippy && cargo package && cargo publish"
 clean = "cargo clean && rm -rf target && rm -rf dist"
 
 [dependencies]
-argon2 = "0.5.2"
-bcrypt = "0.15.0"
-chrono = "0.4.31"
-jsonwebtoken = "9.2.0"
-serde = "1.0.193"
-serde_json = "1.0.108"
-lettre = "0.11.2"
-mongodb = "2.8.0"
-rand = "0.8.5"
-lazy_static = "1.4.0"
-async-trait = "0.1.75"
+argon2 = { version = "0.5.2" }
+bcrypt = { version = "0.15.0" }
+chrono = { version = "0.4.31" }
+jsonwebtoken = { version = "9.2.0" }
+serde = { version = "1.0.193" }
+serde_json = { version = "1.0.108" }
+lettre = { version = "0.11.2" }
+mongodb = { version = "2.8.0" }
+rand = { version = "0.8.5" }
+lazy_static = { version = "1.4.0" }
+async-trait = { version = "0.1.75" }
 tokio = { version = "1.35.1", features = ["full"] }
-dotenv = "0.15.0"
+dotenv = { version = "0.15.0" }
 
 [dependencies.uuid]
 version = "1.6.1"
 features = [
-    "v4",                # Lets you generate random UUIDs
-    "fast-rng",          # Use a faster (but still sufficiently random) RNG
-    "macro-diagnostics", # Enable better diagnostics for compile-time UUIDs
+    "v4",
+    "fast-rng",
+    "macro-diagnostics",
 ]

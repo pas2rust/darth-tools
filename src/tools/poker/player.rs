@@ -1,7 +1,4 @@
-use super::{
-    card::Card, combination::Combination, history::History,
-    position::Position,
-};
+use super::{card::Card, combination::Combination, history::History, position::Position};
 
 #[derive(Clone, Debug)]
 pub enum Decision {

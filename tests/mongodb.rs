@@ -14,9 +14,7 @@ pub struct User {
 
 #[tokio::test]
 async fn mongodb_connect_is_impossible() {
-    let connect =
-        DarthTools::mongodb_connect::<User>("uri", "dbname", "table")
-            .await;
+    let connect = DarthTools::mongodb_connect::<User>("uri", "dbname", "table").await;
     match connect {
         Ok(table) => assert!(false, "{:#?}", table.collection),
         Err(_) => assert!(true),
@@ -28,24 +26,11 @@ async fn mongodb_connect_is_impossible() {
 async fn mongodb_connect_is_possible() {
     dotenv().ok();
     let uri = env::var("MONGODB_URI").expect("env MONGODB_URI error");
-    let connect = DarthTools::mongodb_connect::<User>(
-        uri.as_str(),
-        "test",
-        "table",
-    )
-    .await;
+    let connect = DarthTools::mongodb_connect::<User>(uri.as_str(), "test", "table").await;
     match connect {
         Ok(table) => {
             let insert = table
-                .insert_one(
-                    5,
-                    User {
-                        email: "email".to_string(),
-                        id: "1".to_string(),
-                        name: "name".to_string(),
-                    },
-                    None,
-                )
+                .insert_one(5, User { email: "email".to_string(), id: "1".to_string(), name: "name".to_string() }, None)
                 .await;
             match insert {
                 Ok(_) => assert!(true),

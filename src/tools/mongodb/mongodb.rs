@@ -5,20 +5,14 @@ use mongodb::{error::Error, Client};
 
 #[async_trait]
 pub trait MongodbTrait {
-    async fn mongodb_connect<Item>(
-        endpoint: &str,
-        db: &str,
-        table: &str,
-    ) -> Result<Mongo<Item>, Error>
+    async fn mongodb_connect<Item>(endpoint: &str, db: &str, table: &str) -> Result<Mongo<Item>, Error>
     where
         Item: for<'de> serde::Deserialize<'de> + serde::Serialize;
 }
 
 #[async_trait]
 impl MongodbTrait for DarthTools {
-    async fn mongodb_connect<
-        Item: for<'de> serde::Deserialize<'de> + serde::Serialize,
-    >(
+    async fn mongodb_connect<Item: for<'de> serde::Deserialize<'de> + serde::Serialize>(
         endpoint: &str,
         db: &str,
         table: &str,

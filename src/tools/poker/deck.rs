@@ -1,4 +1,4 @@
-use super::card::{Card, Suit, Weight};
+use super::card::{Card, Number, Suit};
 use rand::Rng;
 #[derive(Clone, Debug, PartialEq)]
 pub struct Deck {
@@ -7,26 +7,25 @@ pub struct Deck {
 impl Deck {
     pub fn new_texas_holdem() -> Self {
         let mut deck = Vec::new();
-        let suits =
-            [Suit::Hearts, Suit::Spades, Suit::Clubs, Suit::Diamonds];
+        let suits = [Suit::Hearts, Suit::Spades, Suit::Clubs, Suit::Diamonds];
         let values = [
-            Weight::Ace,
-            Weight::Two,
-            Weight::Three,
-            Weight::Four,
-            Weight::Five,
-            Weight::Six,
-            Weight::Seven,
-            Weight::Eight,
-            Weight::Nine,
-            Weight::Ten,
-            Weight::Jack,
-            Weight::Queen,
-            Weight::King,
+            Number::Ace,
+            Number::Two,
+            Number::Three,
+            Number::Four,
+            Number::Five,
+            Number::Six,
+            Number::Seven,
+            Number::Eight,
+            Number::Nine,
+            Number::Ten,
+            Number::Jack,
+            Number::Queen,
+            Number::King,
         ];
         suits.iter().for_each(|suit| {
             values.iter().for_each(|value| {
-                deck.push(Card { weight: *value, suit: *suit });
+                deck.push(Card { number: *value, suit: *suit });
             })
         });
         Self { cards: deck }
@@ -38,7 +37,7 @@ impl Deck {
             self.cards.swap(i, j);
         }
     }
-    pub fn draw(&mut self, draws: u16) -> Vec<Card> {
+    pub fn draw(&mut self, draws: u8) -> Vec<Card> {
         let mut run = 0;
         let mut result: Vec<Card> = Vec::new();
         let mut rng = rand::thread_rng();

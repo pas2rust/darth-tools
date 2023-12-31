@@ -1,8 +1,4 @@
-use lettre::{
-    message::header::ContentType,
-    transport::smtp::authentication::Credentials, Message,
-    SmtpTransport,
-};
+use lettre::{message::header::ContentType, transport::smtp::authentication::Credentials, Message, SmtpTransport};
 
 use super::darth_tools::DarthTools;
 
@@ -56,15 +52,8 @@ impl LettreTrait for DarthTools {
             .subject(subject)
             .header(ContentType::TEXT_HTML)
             .body(body.to_string())?;
-        let credentials = Credentials::new(
-            user_smtp.to_owned(),
-            password_smtp.to_owned(),
-        );
-        SmtpTransport::relay(provider)
-            .expect("transport error")
-            .credentials(credentials)
-            .port(port)
-            .build();
+        let credentials = Credentials::new(user_smtp.to_owned(), password_smtp.to_owned());
+        SmtpTransport::relay(provider).expect("transport error").credentials(credentials).port(port).build();
         Ok(())
     }
 }

@@ -1,5 +1,5 @@
-#[derive(Clone, Debug, Copy, PartialEq)]
-pub enum Weight {
+#[derive(Clone, Debug, Copy, PartialEq, Eq, Hash, PartialOrd, Ord)]
+pub enum Number {
     Ace,   // Ás
     Two,   // Dois
     Three, // Três
@@ -14,34 +14,34 @@ pub enum Weight {
     Queen, // Dama
     King,  // Rei
 }
-impl Weight {
+impl Number {
     pub fn weight(&self) -> u8 {
         match *self {
-            Weight::Ace => 14,
-            Weight::Two => 2,
-            Weight::Three => 3,
-            Weight::Four => 4,
-            Weight::Five => 5,
-            Weight::Six => 6,
-            Weight::Seven => 7,
-            Weight::Eight => 8,
-            Weight::Nine => 9,
-            Weight::Ten => 10,
-            Weight::Jack => 11,
-            Weight::Queen => 12,
-            Weight::King => 13,
+            Number::Ace => 14,
+            Number::Two => 2,
+            Number::Three => 3,
+            Number::Four => 4,
+            Number::Five => 5,
+            Number::Six => 6,
+            Number::Seven => 7,
+            Number::Eight => 8,
+            Number::Nine => 9,
+            Number::Ten => 10,
+            Number::Jack => 11,
+            Number::Queen => 12,
+            Number::King => 13,
         }
     }
 }
-#[derive(Clone, Debug, Copy, PartialEq)]
+#[derive(Clone, Debug, Copy, PartialEq, Eq, Hash, PartialOrd, Ord)]
 pub enum Suit {
     Hearts,   // copas
     Spades,   // espadas
     Clubs,    // paus
     Diamonds, // ouros
 }
-#[derive(Clone, Debug, Copy, PartialEq)]
+#[derive(Clone, Debug, Copy, PartialEq, Eq, Hash, PartialOrd, Ord)]
 pub struct Card {
     pub suit: Suit,
-    pub weight: Weight,
+    pub number: Number,
 }

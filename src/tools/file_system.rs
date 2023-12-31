@@ -8,24 +8,14 @@ use tokio::{
 
 #[async_trait]
 pub trait FsTrait {
-    async fn fs_insert_json(
-        data: &Value,
-        path: &str,
-    ) -> std::io::Result<()>;
+    async fn fs_insert_json(data: &Value, path: &str) -> std::io::Result<()>;
     async fn fs_read_json(path: &str) -> std::io::Result<Value>;
-    async fn fs_update_item(
-        id: &str,
-        new_data: &Value,
-        path: &str,
-    ) -> std::io::Result<()>;
+    async fn fs_update_item(id: &str, new_data: &Value, path: &str) -> std::io::Result<()>;
 }
 
 #[async_trait]
 impl FsTrait for DarthTools {
-    async fn fs_insert_json(
-        data: &Value,
-        path: &str,
-    ) -> std::io::Result<()> {
+    async fn fs_insert_json(data: &Value, path: &str) -> std::io::Result<()> {
         let mut file = File::create(path).await?;
         let data_string = data.to_string();
         file.write_all(data_string.as_bytes()).await
@@ -37,11 +27,7 @@ impl FsTrait for DarthTools {
         let data: Value = serde_json::from_str(&data_string).unwrap();
         Ok(data)
     }
-    async fn fs_update_item(
-        id: &str,
-        new_data: &Value,
-        path: &str,
-    ) -> std::io::Result<()> {
+    async fn fs_update_item(id: &str, new_data: &Value, path: &str) -> std::io::Result<()> {
         let mut data = Self::fs_read_json(path).await?;
         if let Some(obj) = data.as_object_mut() {
             if obj.contains_key(id) {
