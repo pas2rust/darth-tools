@@ -1,21 +1,19 @@
-use crate::{DarthTools, Number, Suit};
-
-use super::{card::Card, combination::Combination, deck::Deck};
+use super::{
+    super::darth_tools::DarthTools,
+    card::{Card, Number, Suit},
+    deck::Deck,
+};
 
 pub trait PokerTrait {
-    fn new_poker_texas_holdem_deck() -> Deck;
-    fn new_card(suit: Suit, number: Number) -> Card;
-    fn best_possible_combination_texas_holdem(cards: &[Card; 7]) -> Option<Combination>;
+    fn new_poker_deck_holdem() -> Deck;
+    fn new_poker_card(suit: Suit, number: Number) -> Card;
 }
 
 impl PokerTrait for DarthTools {
-    fn new_poker_texas_holdem_deck() -> Deck {
-        Deck::new_texas_holdem()
+    fn new_poker_deck_holdem() -> Deck {
+        Deck::new_holdem()
     }
-    fn new_card(suit: Suit, number: Number) -> Card {
-        Card { suit, number }
-    }
-    fn best_possible_combination_texas_holdem(cards: &[Card; 7]) -> Option<Combination> {
-        Combination::best_possible_combination_texas_holdem(cards)
+    fn new_poker_card(suit: Suit, number: Number) -> Card {
+        Card::new(suit, number)
     }
 }

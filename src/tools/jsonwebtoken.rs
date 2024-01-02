@@ -12,9 +12,18 @@ pub struct Token {
 }
 
 pub trait JsonwebtokenTrait {
-    fn new_jsonwebtoken_hs256_decode(token: String, secret: &str) -> Result<Token, jsonwebtoken::errors::Error>;
-    fn new_jsonwebtoken_hs384_decode(token: String, secret: &str) -> Result<Token, jsonwebtoken::errors::Error>;
-    fn new_jsonwebtoken_hs512_decode(token: String, secret: &str) -> Result<Token, jsonwebtoken::errors::Error>;
+    fn new_jsonwebtoken_hs256_decode(
+        token: String,
+        secret: &str,
+    ) -> Result<Token, jsonwebtoken::errors::Error>;
+    fn new_jsonwebtoken_hs384_decode(
+        token: String,
+        secret: &str,
+    ) -> Result<Token, jsonwebtoken::errors::Error>;
+    fn new_jsonwebtoken_hs512_decode(
+        token: String,
+        secret: &str,
+    ) -> Result<Token, jsonwebtoken::errors::Error>;
     fn new_jsonwebtoken_hs256_encode(
         items: Value,
         exp: usize,
@@ -33,7 +42,10 @@ pub trait JsonwebtokenTrait {
 }
 
 impl JsonwebtokenTrait for DarthTools {
-    fn new_jsonwebtoken_hs256_decode(token: String, secret: &str) -> Result<Token, jsonwebtoken::errors::Error> {
+    fn new_jsonwebtoken_hs256_decode(
+        token: String,
+        secret: &str,
+    ) -> Result<Token, jsonwebtoken::errors::Error> {
         let res = decode::<Token>(
             &token,
             &DecodingKey::from_secret(secret.as_ref()),
@@ -41,7 +53,10 @@ impl JsonwebtokenTrait for DarthTools {
         )?;
         Ok(res.claims)
     }
-    fn new_jsonwebtoken_hs384_decode(token: String, secret: &str) -> Result<Token, jsonwebtoken::errors::Error> {
+    fn new_jsonwebtoken_hs384_decode(
+        token: String,
+        secret: &str,
+    ) -> Result<Token, jsonwebtoken::errors::Error> {
         let res = decode::<Token>(
             &token,
             &DecodingKey::from_secret(secret.as_ref()),
@@ -49,7 +64,10 @@ impl JsonwebtokenTrait for DarthTools {
         )?;
         Ok(res.claims)
     }
-    fn new_jsonwebtoken_hs512_decode(token: String, secret: &str) -> Result<Token, jsonwebtoken::errors::Error> {
+    fn new_jsonwebtoken_hs512_decode(
+        token: String,
+        secret: &str,
+    ) -> Result<Token, jsonwebtoken::errors::Error> {
         let res = decode::<Token>(
             &token,
             &DecodingKey::from_secret(secret.as_ref()),

@@ -6,7 +6,10 @@ use argon2::{
 
 pub trait Argon2Trait {
     fn argon2_default_encode(password: &str) -> Result<String, String>;
-    fn argon2_default_verify_password(original_password: &str, encoded_hash: &str) -> Result<bool, String>;
+    fn argon2_default_verify_password(
+        original_password: &str,
+        encoded_hash: &str,
+    ) -> Result<bool, String>;
 }
 
 impl Argon2Trait for DarthTools {
@@ -19,8 +22,12 @@ impl Argon2Trait for DarthTools {
             Err(err) => Err(err.to_string()),
         }
     }
-    fn argon2_default_verify_password(original_password: &str, encoded_hash: &str) -> Result<bool, String> {
-        let parsed_hash = PasswordHash::new(encoded_hash).map_err(|e| format!("Invalid hash format: {}", e))?;
+    fn argon2_default_verify_password(
+        original_password: &str,
+        encoded_hash: &str,
+    ) -> Result<bool, String> {
+        let parsed_hash =
+            PasswordHash::new(encoded_hash).map_err(|e| format!("Invalid hash format: {}", e))?;
         let argon2 = Argon2::default();
         argon2
             .verify_password(original_password.as_bytes(), &parsed_hash)

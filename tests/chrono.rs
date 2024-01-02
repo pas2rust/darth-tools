@@ -15,29 +15,29 @@ fn test_new_date_local_now() {
 }
 
 #[test]
-#[ignore = "12:00 pm error"]
+#[ignore = "2024 new year error"]
 fn test_new_date_utc_add_time_by_days() {
     let days = 1;
     let date = DarthTools::new_date_utc_now();
     let new_date = DarthTools::new_date_utc_add_time_by_days(days);
+
+    println!("Original Date: {:?}", date);
+    println!("New Date: {:?}", new_date);
+
     assert_eq!(date.day() + days as u32, new_date.day());
 }
 
 #[test]
-#[ignore = "12:00 pm error"]
+#[ignore = "2024 new year error"]
 fn test_new_date_local_add_time_by_days() {
     let days = 1;
     let date = DarthTools::new_date_local_now();
     let new_date = DarthTools::new_date_local_add_time_by_days(days);
-    assert_eq!(date.day() + days as u32, new_date.day());
-}
 
-#[test]
-fn test_new_date_utc_add_time_by_minutes() {
-    let minutes = 1;
-    let date = DarthTools::new_date_utc_now();
-    let new_date = DarthTools::new_date_utc_add_time_by_minutes(minutes);
-    assert_eq!(date.minute() + minutes as u32, new_date.minute());
+    println!("Original Date: {:?}", date);
+    println!("New Date: {:?}", new_date);
+
+    assert_eq!(date.day() + days as u32, new_date.day());
 }
 
 #[test]

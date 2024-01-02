@@ -30,7 +30,15 @@ async fn mongodb_connect_is_possible() {
     match connect {
         Ok(table) => {
             let insert = table
-                .insert_one(5, User { email: "email".to_string(), id: "1".to_string(), name: "name".to_string() }, None)
+                .insert_one(
+                    5,
+                    User {
+                        email: "email".to_string(),
+                        id: "1".to_string(),
+                        name: "name".to_string(),
+                    },
+                    None,
+                )
                 .await;
             match insert {
                 Ok(_) => assert!(true),

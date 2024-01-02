@@ -2,10 +2,14 @@ use mongodb::{
     bson::Document,
     error::Error,
     options::{
-        AggregateOptions, CreateIndexOptions, CreateSearchIndexOptions, DeleteOptions, DropCollectionOptions,
-        FindOptions, InsertManyOptions, InsertOneOptions, SessionOptions, UpdateOptions, UpdateSearchIndexOptions,
+        AggregateOptions, CreateIndexOptions, CreateSearchIndexOptions, DeleteOptions,
+        DropCollectionOptions, FindOptions, InsertManyOptions, InsertOneOptions, SessionOptions,
+        UpdateOptions, UpdateSearchIndexOptions,
     },
-    results::{CreateIndexResult, CreateIndexesResult, DeleteResult, InsertManyResult, InsertOneResult, UpdateResult},
+    results::{
+        CreateIndexResult, CreateIndexesResult, DeleteResult, InsertManyResult, InsertOneResult,
+        UpdateResult,
+    },
     Client, Collection, Cursor, Database, IndexModel, SearchIndexModel, SessionCursor,
 };
 use serde::{Deserialize, Serialize};
@@ -129,7 +133,12 @@ impl<Item: Serialize + Deserialize<'static>> Mongo<Item> {
             Err(err) => Err(Error::custom(err)),
         }
     }
-    pub async fn find(&self, secs: u64, filter: Document, options: Option<FindOptions>) -> Result<Cursor<Item>, Error> {
+    pub async fn find(
+        &self,
+        secs: u64,
+        filter: Document,
+        options: Option<FindOptions>,
+    ) -> Result<Cursor<Item>, Error> {
         let collection = &self.collection;
         let future = collection.find(filter, options);
         match timeout(Duration::from_secs(secs), future).await {
@@ -217,7 +226,8 @@ impl<Item: Serialize + Deserialize<'static>> Mongo<Item> {
     ) -> Result<UpdateResult, Error> {
         let collection = &self.collection;
         let mut session = self.client.start_session(session_options).await?;
-        let future = collection.update_many_with_session(filter, update, options_update, &mut session);
+        let future =
+            collection.update_many_with_session(filter, update, options_update, &mut session);
         match timeout(Duration::from_secs(secs), future).await {
             Ok(ok) => ok,
             Err(err) => Err(Error::custom(err)),
@@ -233,7 +243,8 @@ impl<Item: Serialize + Deserialize<'static>> Mongo<Item> {
     ) -> Result<UpdateResult, Error> {
         let collection = &self.collection;
         let mut session = self.client.start_session(session_options).await?;
-        let future = collection.update_one_with_session(filter, update, options_update, &mut session);
+        let future =
+            collection.update_one_with_session(filter, update, options_update, &mut session);
         match timeout(Duration::from_secs(secs), future).await {
             Ok(ok) => ok,
             Err(err) => Err(Error::custom(err)),
@@ -253,7 +264,11 @@ impl<Item: Serialize + Deserialize<'static>> Mongo<Item> {
             Err(err) => Err(Error::custom(err)),
         }
     }
-    pub async fn drop(&self, secs: u64, options: Option<DropCollectionOptions>) -> Result<(), Error> {
+    pub async fn drop(
+        &self,
+        secs: u64,
+        options: Option<DropCollectionOptions>,
+    ) -> Result<(), Error> {
         let collection = &self.collection;
         let future = collection.drop(options);
         match timeout(Duration::from_secs(secs), future).await {

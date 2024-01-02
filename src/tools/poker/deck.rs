@@ -1,14 +1,17 @@
 use super::card::{Card, Number, Suit};
-use rand::Rng;
-#[derive(Clone, Debug, PartialEq)]
+use rand::{seq::SliceRandom, thread_rng};
+
+pub type Cards = [Card; 52];
+
 pub struct Deck {
-    pub cards: Vec<Card>,
+    pub cards: Cards,
 }
+
 impl Deck {
-    pub fn new_texas_holdem() -> Self {
-        let mut deck = Vec::new();
-        let suits = [Suit::Hearts, Suit::Spades, Suit::Clubs, Suit::Diamonds];
-        let values = [
+    pub fn new_holdem() -> Self {
+        let mut cards = [Card::new(Suit::Clubs, Number::Ace); 52];
+        let suits = [Suit::Clubs, Suit::Diamonds, Suit::Hearts, Suit::Spades];
+        let numbers = [
             Number::Ace,
             Number::Two,
             Number::Three,
@@ -23,33 +26,37 @@ impl Deck {
             Number::Queen,
             Number::King,
         ];
-        suits.iter().for_each(|suit| {
-            values.iter().for_each(|value| {
-                deck.push(Card { number: *value, suit: *suit });
-            })
-        });
-        Self { cards: deck }
-    }
-    pub fn shuffle(&mut self) {
-        let mut rng = rand::thread_rng();
-        for i in (1..self.cards.len()).rev() {
-            let j = rng.gen_range(0..=i);
-            self.cards.swap(i, j);
-        }
-    }
-    pub fn draw(&mut self, draws: u8) -> Vec<Card> {
-        let mut run = 0;
-        let mut result: Vec<Card> = Vec::new();
-        let mut rng = rand::thread_rng();
-        loop {
-            run += 1;
-            let random = rng.gen_range(0..self.cards.len());
-            let card = self.cards.remove(random);
-            result.push(card);
-            if run == draws {
+
+        let mut card_index = 0;
+        for suit in &suits {
+            for number in &numbers {
+                cards[card_index] = Card::new(*suit, *number);
+                card_index += 1;
+                if card_index >= 52 {
+                    break;
+                }
+            }
+            if card_index >= 52 {
                 break;
             }
         }
-        result
+
+        Self { cards }
+    }
+    pub fn shuffle(&mut self) {
+        let mut rng = thread_rng();
+        self.cards.shuffle(&mut rng);
+    }
+    pub fn draw(&mut self, num: usize) -> Vec<Card> {
+        let mut drawn_cards = Vec::new();
+        for _ in 0..num {
+            if !self.cards.is_empty() {
+                let card = self.cards.to_vec().remove(0);
+                drawn_cards.push(card);
+            } else {
+                break;
+            }
+        }
+        drawn_cards
     }
 }

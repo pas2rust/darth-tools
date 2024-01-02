@@ -5,6 +5,7 @@ pub mod darth_tools;
 pub mod file_system;
 pub mod jsonwebtoken;
 pub mod lettre;
+pub mod monero;
 pub mod mongodb;
 pub mod poker;
 pub mod random_bytes;

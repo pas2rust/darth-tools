@@ -1,6 +1,5 @@
 use uuid::Uuid;
 
-
 use super::darth_tools::DarthTools;
 
 pub trait UuidTrait {
