@@ -32,9 +32,7 @@ fn sort_in_ascending_order(cards: &mut Vec<Card>) {
 impl Combination {
     pub fn force(&self) -> usize {
         match *self {
-            Self::RoyalFlush(cards) => {
-                10000 + cards.iter().map(|c| c.number.value()).sum::<usize>()
-            }
+            Self::RoyalFlush(cards) => 10000,
             Self::StraightFlush(cards) => {
                 9000 + cards.iter().map(|c| c.number.value()).sum::<usize>()
             }
