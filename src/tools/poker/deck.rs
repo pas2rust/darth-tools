@@ -1,7 +1,7 @@
 use super::card::{Card, Number, Suit};
 use rand::{seq::SliceRandom, thread_rng};
 
-pub type Cards = [Card; 52];
+pub type Cards = Vec<Card>;
 
 pub struct Deck {
     pub cards: Cards,
@@ -41,7 +41,7 @@ impl Deck {
             }
         }
 
-        Self { cards }
+        Self { cards: cards.to_vec() }
     }
     pub fn shuffle(&mut self) {
         let mut rng = thread_rng();
@@ -50,8 +50,7 @@ impl Deck {
     pub fn draw(&mut self, num: usize) -> Vec<Card> {
         let mut drawn_cards = Vec::new();
         for _ in 0..num {
-            if !self.cards.is_empty() {
-                let card = self.cards.to_vec().remove(0);
+            if let Some(card) = self.cards.pop() {
                 drawn_cards.push(card);
             } else {
                 break;

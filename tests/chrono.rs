@@ -15,7 +15,7 @@ fn test_new_date_local_now() {
 }
 
 #[test]
-#[ignore = "2024 new year error"]
+
 fn test_new_date_utc_add_time_by_days() {
     let days = 1;
     let date = DarthTools::new_date_utc_now();
@@ -28,7 +28,7 @@ fn test_new_date_utc_add_time_by_days() {
 }
 
 #[test]
-#[ignore = "2024 new year error"]
+
 fn test_new_date_local_add_time_by_days() {
     let days = 1;
     let date = DarthTools::new_date_local_now();
