@@ -2,7 +2,7 @@ use std::collections::HashMap;
 
 use itertools::Itertools;
 
-use super::card::{Card, Number};
+use super::card::Card;
 
 type Combo = [Card; 5];
 type TwoKickers = [Card; 2];
@@ -11,7 +11,7 @@ type TwoKickers = [Card; 2];
 pub enum Combination {
     RoyalFlush(Combo),               // A Coroa Real
     StraightFlush(Combo),            // Escada Real
-    FourOfAKind(Combo, TwoKickers),  // Quadra ou Poker
+    FourOfAKind(Combo),              // Quadra ou Poker
     FullHouse(Combo),                // Full ou Casa Cheia
     Flush(Combo),                    // Flush ou Cor
     Straight(Combo),                 // Sequência ou Escada
@@ -25,18 +25,14 @@ fn sort_in_descending_order(cards: &mut Vec<Card>) {
     cards.sort_by(|a, b| b.number.value().cmp(&a.number.value()));
 }
 
-fn sort_in_ascending_order(cards: &mut Vec<Card>) {
-    cards.sort_by(|a, b| a.number.value().cmp(&b.number.value()));
-}
-
 impl Combination {
     pub fn force(&self) -> usize {
         match *self {
-            Self::RoyalFlush(cards) => 10000,
+            Self::RoyalFlush(_cards) => 10000,
             Self::StraightFlush(cards) => {
                 9000 + cards.iter().map(|c| c.number.value()).sum::<usize>()
             }
-            Self::FourOfAKind(cards, kickers) => {
+            Self::FourOfAKind(cards) => {
                 8000 + cards.iter().map(|c| c.number.value()).sum::<usize>()
             }
             Self::FullHouse(cards) => 7000 + cards.iter().map(|c| c.number.value()).sum::<usize>(),
@@ -65,7 +61,7 @@ impl Combination {
         match *self {
             Combination::RoyalFlush(_) => "Royal Flush",
             Combination::StraightFlush(_) => "Straight Flush",
-            Combination::FourOfAKind(_, _) => "Four of a Kind",
+            Combination::FourOfAKind(_) => "Four of a Kind",
             Combination::FullHouse(_) => "Full House",
             Combination::Flush(_) => "Flush",
             Combination::Straight(_) => "Straight",
@@ -86,7 +82,6 @@ impl Combination {
                 && window.windows(2).all(|pair| pair[0].suit == pair[1].suit)
                 && window[0].number.value() == 14 // Ace
                 && window[4].number.value() == 10
-            // Ten
             {
                 return Some(Combination::RoyalFlush([
                     window[0], window[1], window[2], window[3], window[4],
@@ -211,12 +206,7 @@ impl Combination {
             cards.retain(|x| !four.contains(x));
             sort_in_descending_order(cards);
             let kicker = cards.pop().unwrap(); // get the card with the lowest value
-            let kicker1 = cards[0];
-            let kicker2 = cards[1];
-            Some(Combination::FourOfAKind(
-                [four[0], four[1], four[2], four[3], kicker],
-                [kicker1, kicker2],
-            ))
+            Some(Combination::FourOfAKind([four[0], four[1], four[2], four[3], kicker]))
         } else {
             None
         }

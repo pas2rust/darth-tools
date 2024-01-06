@@ -47,7 +47,7 @@ wrap_comments = true
 error_on_line_overflow = false
 
 # Define se um erro deve ser lançado quando o código não está formatado
-error_on_unformatted = true
+error_on_unformatted = false
 
 # Define se os itens de implementação devem ser reordenados
 reorder_impl_items = false

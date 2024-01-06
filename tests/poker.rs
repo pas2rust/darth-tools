@@ -203,10 +203,7 @@ fn test_poker_holdem_four_of_a_kind() {
         DarthTools::is_combination_holdem(cards.to_vec()).expect("is combination error");
     assert_eq!(
         combination,
-        Combination::FourOfAKind(
-            [cards[0], cards[1], cards[2], cards[3], cards[4]],
-            [cards[6], cards[5]]
-        )
+        Combination::FourOfAKind([cards[0], cards[1], cards[2], cards[3], cards[4]],)
     )
 }
 
