@@ -6,7 +6,6 @@ use darth_tools::{
     poker::PokerTrait,
     DarthTools,
 };
-use itertools::Itertools;
 
 #[test]
 fn test_poker_deck_new_holdem_card_unique_cards() {

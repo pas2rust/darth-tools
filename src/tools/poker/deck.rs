@@ -1,8 +1,11 @@
 use super::card::{Card, Number, Suit};
 use rand::{seq::SliceRandom, thread_rng};
+use darth_rust::DarthRust;
+use serde::{Serialize, Deserialize};
 
 pub type Cards = Vec<Card>;
 
+#[derive(Debug, DarthRust, Deserialize, Serialize)]
 pub struct Deck {
     pub cards: Cards,
 }
