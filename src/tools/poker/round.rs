@@ -6,7 +6,7 @@ use super::player::Players;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub enum Phase {
-    None,
+    Thinking,
     Flop(Card, Card, Card),
     River(Card),
     Turn(Card)
@@ -22,7 +22,7 @@ pub struct Round {
 
 impl Default for Phase {
     fn default() -> Self {
-        Self::None
+        Self::Thinking
     }
 }
 
